@@ -161,5 +161,41 @@ Dem_EGov = Dem2[['Region','GII_Score','GII_Score_Imp']]
 boxplot_EGov = Dem_EGov.boxplot(by='Region', figsize = (10,5), rot = 90)
 ```
 
-[Figure 1: Imputation of missing values grouped by region.]()
+[Figure 1: Imputation of missing values grouped by region.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/Screenshot%202023-05-14%20140728.png)
+
+### Treatment of outliers and normalization
+To evaluate the presence of outliers in the datasets can be measured through the skewness and kurtosis of each indicator. In the case of having no more than four outliers, they can be initially replaced by the smallest and largest values with the observations closest to them. This is done to limit the effect of abnormal extreme values, or outliers, on the dispersion of each indicator.
+
+```python
+Indicators1 = Master.iloc[:,10:] # Create a data frame with only the individual indicators.
+# 
+# The descriptive statistics will show the indicators with outlier values: 
+Stats = Indicators1.describe().transpose()
+Stats
+
+StatsMax = Stats[Stats['max'] >100] # Verify features with values greater than 100
+StatsMax
+
+StatsMin = Stats[Stats['min'] <0] # Verify features with values less than 0
+StatsMin
+
+skew = Indicators1.skew()
+Skewness = pd.DataFrame({'Skewness': abs(skew)})
+
+# Filter only the indicators with more than an absolute value of 2.25 of Skewness: 
+SkewAbs = Skewness[Skewness['Skewness'] >=2.25]
+SkewAbs
+
+kurtos = Indicators1.kurtosis()
+Kurtosis = pd.DataFrame({'Kurtosis': abs(kurtos)})
+
+# Filter only the indicators with more than an absolute value of 3.5 of kurtosis: 
+KurtosAbs = Kurtosis[Kurtosis['Kurtosis'] >=3.5]
+KurtosAbs
+
+# Histogram plots of the indicators with kurtosis
+Indicators1.hist(KurtosAbs.index,figsize=(30, 20))
+plt.show()
+```
+[Figure 1.1: Histogram plots of the indicators with kurtosis]()
 

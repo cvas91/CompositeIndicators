@@ -161,7 +161,7 @@ Dem_EGov = Dem2[['Region','GII_Score','GII_Score_Imp']]
 boxplot_EGov = Dem_EGov.boxplot(by='Region', figsize = (10,5), rot = 90)
 ```
 
-[Figure 1: Imputation of missing values grouped by region.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/Screenshot%202023-05-14%20140728.png)
+![Figure 1: Imputation of missing values grouped by region.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/Screenshot%202023-05-14%20140728.png)
 
 ### Treatment of outliers and normalization
 To evaluate the presence of outliers in the datasets can be measured through the skewness and kurtosis of each indicator. In the case of having no more than four outliers, they can be initially replaced by the smallest and largest values with the observations closest to them. This is done to limit the effect of abnormal extreme values, or outliers, on the dispersion of each indicator.
@@ -197,5 +197,49 @@ KurtosAbs
 Indicators1.hist(KurtosAbs.index,figsize=(30, 20))
 plt.show()
 ```
-[Figure 1.1: Histogram plots of the indicators with kurtosis]()
+
+![Figure 1.1: Histogram plots of the indicators with kurtosis](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/Screenshot%202023-05-14%20141411.png)
+
+### Clustering
+Before starting the clustering process on the consolidated dataset, it is necessary to identify the optimal number of clusters in which the countries can be grouped according to their GDP per capita level and the mean of the exogenous indexes. To do so by applying the **K-Means method**, this algorithm creates a plot for the number of clusters on the x-axis and the total sum of squares errors (SSE) on the y-axis and then identifies where an “elbow” or bend appears indicating the optimal number of clusters on the x-axis for the k-means clustering algorithm.
+
+```python
+X = Master[['Mean Exo Indexes', 'GDP_PC_log']].values
+np.random.seed(42)
+inertia = []
+distortions = []
+
+for i in range(1, 10): # Iterating the process
+    model = KMeans(n_clusters=i, n_init='auto')  # Instantiate the model
+    model.fit(X)  # Fit The Model
+    inertia.append(model.inertia_)  # Extract the error of the model
+    distortions.append(sum(np.min(cdist(X, model.cluster_centers_,'euclidean'), axis=1)) / X.shape[0])
+
+fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 5)) # Create a panel with 2 subplots (1x2)
+plt.plot(range(1, 10), distortions, 'bx-') #Visualize the model
+axs[0].plot(range(1, 10), inertia, 'bx-')
+axs[0].set_title("Elbow Method Using Inertia")
+axs[0].grid()
+axs[1].plot(range(1, 10), distortions, 'bx-')
+axs[1].set_title("Elbow Method Using Distortion")
+axs[1].grid()
+plt.suptitle("Optimal KMeans Clusters").set_y(1)
+plt.show()
+
+# Clustering with the KMeans method.
+
+from sklearn.cluster import KMeans
+np.random.seed(42) #Instantiate the model
+y_pred = KMeans(n_clusters=3 ).fit_predict(X)
+
+plt.figure(figsize=(10, 5))
+plt.scatter(X[:, 0], X[:, 1], c=y_pred , cmap='Accent')
+plt.title('Clusters')
+plt.xlabel('Mean Exogenous Indexes')
+plt.ylabel('GDP_PC_log')
+plt.grid()
+plt.show()
+```
+
+![Figure 3: Countries among 3 clusters.]()
 

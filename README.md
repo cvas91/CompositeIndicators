@@ -241,5 +241,28 @@ plt.grid()
 plt.show()
 ```
 
-![Figure 3: Countries among 3 clusters.]()
+![Figure 3: Countries among 3 clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/Screenshot%202023-05-14%20142603.png)
+
+An alternative clustering method is through a Clustering Map, in which all individual indicators and countries will be clustered according to their inner variance.
+
+As shown in the **Cluster Map**, the hierarchic dendrograms cluster countries through the vertical axis with similar income levels, i.e. dark gray for high-income countries, green for middle-income, and blue for low-income. Although some noise with irregular countries (Kuwait, Qatar, Saudi Arabia, UAE) is reported within each cluster.
+In the same way, hierarchical dendrograms cluster indicators in the horizontal axis, where highly correlated indicators are grouped close to each other to form aggregate indicators.
+
+```python
+Indicators2 = Master.iloc[:,14:106] # Create a data frame with only the lastly imputed indicators.
+Indicators2.set_index(Master['Country or Area'], inplace=True)
+
+# Define colours for previously clustered countries
+color_dict = dict(zip(np.unique(Master['ClusterNames']),np.array(['blue','green','grey'])))
+target_df = Master[['Country or Area','ClusterNames']]
+target_df['Clus'] = target_df['ClusterNames'].map(color_dict) 
+target_colors = target_df[['Clus']]
+target_colors.set_index(target_df['Country or Area'], inplace=True)
+
+cgCountries = sns.clustermap(Indicators2, cmap ="YlGnBu", figsize=(30, 50), linewidths = 0.1, row_colors = target_colors);
+plt.setp(cgCountries.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
+```
+
+![Figure A1: Cluster Map across all countries and indicators.]()
+
 

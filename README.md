@@ -263,6 +263,57 @@ cgCountries = sns.clustermap(Indicators2, cmap ="YlGnBu", figsize=(30, 50), line
 plt.setp(cgCountries.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
 ```
 
-![Figure A1: Cluster Map across all countries and indicators.]()
+![Figure A1: Cluster Map across all countries and indicators.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/clustermap.png)
 
+### Correlation Analysis
+
+Pearson’s correlation matrices shown next are intended to test if the correlation between the 92 indicators differs across each cluster, where red coloured represents indicators positively correlated, whereas blue coloured represents a negative correlation. 
+- In this sense, the matrix (a) considers all countries in the dataset, i.e. they are not clustered according to their level of income and mean of exogenous indexes. 
+- The following matrix (b) considers only the countries clustered in the high-income category performing the correlation among all the 92 indicators.
+- Matrix (c) shows no clear, strict correlation between the indicators measured for the set of countries in the middle-income cluster. 
+- Finally, matrix (d) considers only the countries clustered in the low-income.
+
+According to this brief analysis, it is intriguing to see how the indicators’ correlations change between different clusters, implying that the null hypothesis could be rejected as each cluster’s composite indicator seems different.
+
+```python
+Tit = "(a) Grid Correlation Matrix - All Countries"
+
+corrmat = Indicators2.corr()
+cg = sns.clustermap(corrmat, cmap ="coolwarm", figsize=(30, 30), linewidths = 0.1);
+plt.setp(cg.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
+plt.suptitle(Tit).set_y(1)
+cg
+
+IndicatorsHigh = Master[Master['Cluster'] == 2].iloc[:,14:106] # Change the dataset for each cluster!
+TitHigh = "(b) Grid Correlation Matrix - High Income Countries"
+
+corrmatHigh = IndicatorsHigh.corr()
+cgHigh = sns.clustermap(corrmatHigh, cmap ="coolwarm", figsize=(30, 30), linewidths = 0.1);
+plt.setp(cgHigh.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
+plt.suptitle(TitHigh).set_y(1)
+cgHigh
+
+IndicatorsMid = Master[Master['Cluster'] == 0].iloc[:,14:106] # Change the dataset for each cluster!
+TitMid = "(c) Grid Correlation Matrix - Middle Income Countries"
+
+corrmatMid = IndicatorsMid.corr()
+cgMid = sns.clustermap(corrmatMid, cmap ="coolwarm", figsize=(30, 30), linewidths = 0.1);
+plt.setp(cgMid.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
+plt.suptitle(TitMid).set_y(1)
+cgMid
+
+IndicatorsLow = Master[Master['Cluster'] == 1].iloc[:,14:106] # Change the dataset for each cluster!
+TitLow = '(d) Grid Correlation Matrix - Low Income Countries'
+
+corrmatLow = IndicatorsLow.corr()
+cgLow = sns.clustermap(corrmatLow, cmap ="coolwarm", figsize=(30, 30), linewidths = 0.1);
+plt.setp(cgLow.ax_heatmap.yaxis.get_majorticklabels(), rotation = 0)
+plt.suptitle(TitLow).set_y(1)
+cgLow
+```
+
+![Figure 4a: Correlation within all clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-All.png)
+![Figure 4b: Correlation within high clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-High.png)
+![Figure 4c: Correlation within middle clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-Mid.png)
+![Figure 4d: Correlation within low clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-Low.png)
 

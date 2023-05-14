@@ -2,7 +2,7 @@
 
 Author: [Camilo Vargas](https://www.github.com/cvas91)
 
-[Click Here to Access Python Notebook](https://github.com/cvas91/Composite_Indicators/blob/main/cluster-analysis-of-composite-indicators-pca-fa.ipynb)
+Click [Here](https://github.com/cvas91/Composite_Indicators/blob/main/cluster-analysis-of-composite-indicators-pca-fa.ipynb) to Access Python Notebook
 
 **Abstract:** 
 - Technology readiness measures the capacity of a country to adapt and implement new technological developments based on its current capacity and resources. 
@@ -317,3 +317,19 @@ cgLow
 ![Figure 4c: Correlation within middle clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-Mid.png)
 ![Figure 4d: Correlation within low clusters.](https://github.com/cvas91/Composite_Indicators/blob/main/Figures/CorrelationMatrix-Low.png)
 
+### Principal Components Analysis (PCA)
+The purpose of PCA is to explain the variance of the 92 observed indicators through fewer linear combinations of the most relevant indicators, i.e., principal components that preserve a large amount of positive or negative cumulative variance. Thus, the following results will be used as a reference for comparison with the PCA results from the currently clustered datasets. 
+
+PCA is first performed under the complete sample of 141 countries to identify the indicators representing the highest variance across all countries. Then performing PCA for the countries in the high-income cluster. Continuing with the countries in the middle-income cluster. Finally, performing PCA for the countries in the low-income cluster.
+
+### Factor Analysis (FA)
+Given the previously observed latent premise of overlapping some composite indicators across different clusters, an alternative experiment, Factor Analysis (FA), is performed on the same samples of clusters to verify the initial analysis observed with the PCA method. The former, FA, aims to describe a set of indicators using fewer factors to highlight the relationship between these indicators.
+
+Click [Here](https://github.com/cvas91/Composite_Indicators/blob/main/cluster-analysis-of-composite-indicators-pca-fa.ipynb) to access PCA and FA results
+
+### Discussion of results
+Even though these findings from the PCA experiment were not exceptionally significant to conclude that the null hypothesis can be rejected, implying that the composite indicator of each cluster could be the same for all K groups of countries. However, it still needs to be held due to the variety of results obtained from empirical evidence found through clustering and aggregation techniques, like the FA method deployed in this project, from which it can be concluded that the composite indicators between clustered countries are, in fact, different.
+
+The current study has found out that countries should not be compared linearly, as historically stated by prior work from international organizations. Those reports measure technology readiness by comparing composite indicators across all nations. Thus, it is not surprising that high-income countries rank at the top when compared with middle and low-income nations, inferred from the advantages and higher scores they have already accomplished in technology innovation. Initial attempts to measure and compare technology readiness across countries, could have been misleading, given the linear comparison of the same indicators for different sets of countries.
+
+For further analysis and discussion, the full printed version of this project is available upon request.

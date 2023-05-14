@@ -2,6 +2,8 @@
 
 Author: [Camilo Vargas](https://www.github.com/cvas91)
 
+[Click Here to Access Python Code](https://github.com/cvas91/Composite_Indicators/blob/main/cluster-analysis-of-composite-indicators-pca-fa.ipynb)
+
 **Abstract:** 
 - Technology readiness measures the capacity of a country to adapt and implement new technological developments based on its current capacity and resources. 
 - Several organizations have developed composite indicators to rank countries’ technological performance. However, these methods imply a linear, equal comparison across all countries, which may not be a reliable tool for policymakers worldwide with different necessities and economic conditions. 
@@ -19,5 +21,3 @@ By clustering a set of countries due to their technological and economic similar
 
 ### Data selection
 Data for this project will be cross-sectional for a reference timeline as of 2021 or the latest year available for the total population of 217 countries with 127 variables drawn from various international sources and databases, including those of the United Nations Educational, Scientific and Cultural Organization (UNESCO); the World Bank; the International Telecommunication Union (ITU); the World Economic Forum (WEF); the International Monetary Fund (IMF); the Organisation for Economic Co-operation and Development (OECD); the International Labour Organization (ILO) and other international organizations.
-
-![Table A1: Descriptive Statistics](https://github.com/cvas91/CannabisLegalization/blob/main/Figures/Screenshot%202023-05-13%20172804.png)
